@@ -19,18 +19,22 @@ export class LoginComponent {
   isLoading: boolean = false;
 
   loginForm: FormGroup = new FormGroup({
-    identifier: new FormControl(null, [Validators.required]),
+    email: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required])
   });
   constructor(private _AuthService: AuthService, private _Router: Router) {}
 
   login(): void {
+    console.log("Login function triggered!"); 
     if (this.loginForm.valid) {
       this.isLoading = true;
       const loginData = {
-        email: this.loginForm.value.identifier,  
+        emial: this.loginForm.value.identifier,  
         password: this.loginForm.value.password
       };
+  
+      console.log("Sending login data:", loginData); 
+  
   
       this._AuthService.login(loginData).subscribe({
         next: (response) => {
@@ -43,8 +47,8 @@ export class LoginComponent {
         },
         error: (err: HttpErrorResponse) => {
           this.isLoading = false;
-          console.log(err);
-          this.msgerror = err.error.message;
+          console.log("Login Error:", err);
+          this.msgerror = err.error?.message || "Login failed. Please try again.";
         }
       });
     } else {

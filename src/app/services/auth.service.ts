@@ -48,18 +48,19 @@ export class AuthService {
   }
 
   // login method:
-  //login(userData: object): Observable<any> {
- //   return this._HttpClient.post(`${this.apiUrl}/account/login`, userData);
-  //}
-  login(credentials: { email: string; password: string }): Observable<any> {
-    return this._HttpClient.post<any>(`${this.apiUrl}Account/Login`, credentials).pipe(
-      catchError((err: HttpErrorResponse) => {
-        if (err.status === 404) {
+  login(userData: object): Observable<any> {
+    return this._HttpClient.post(`${this.apiUrl}/api/Account/Login`, userData);
+  }
+
+  //login(credentials: { email: string; password: string }): Observable<any> {
+    //return this._HttpClient.post<any>(`${this.apiUrl}/Account/Login`, credentials).pipe(
+      //catchError((err: HttpErrorResponse) => {
+       // if (err.status === 404) {
           
-          throw new Error('Email not found. Please check your email and try again.');
-        }
-        return throwError(err);
-      })
-    );
-  }
+         // throw new Error('Email not found. Please check your email and try again.');
+        //}
+        //return throwError(err);
+      //})
+    //);
+  //}
 }
